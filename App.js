@@ -1,20 +1,143 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler';
 
-export default function App() {
+import { Text, View, Image, StyleSheet, Platform } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { getFocusedRouteNameFromRoute, NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+
+// screens
+import Home from './src/Home';
+import Profile from './src/Profile';
+import Scan from './src/Scan';
+import Login from './src/Login';
+import { primary } from './src/constants';
+import RideScreen from './src/RideScreen';
+
+const Tab = createBottomTabNavigator();
+const NavigationStack = createStackNavigator();
+
+const HomeNavigation = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <NavigationStack.Navigator
+      screenOptions={{ headerShown: false }}>
+      <NavigationStack.Screen name="Home" component={Home} />
+    </NavigationStack.Navigator>
+  )
+}
+
+
+const RideNavigation = () => {
+  return (
+    <NavigationStack.Navigator
+      screenOptions={{ headerShown: false }}>
+      <NavigationStack.Screen name="Scan" component={Scan} />
+      <NavigationStack.Screen name="RideScreen" component={RideScreen} />
+    </NavigationStack.Navigator>
+  )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
+  tabBarStyle: {
+    backgroundColor: '#fff', 
+    height: Platform.OS == "ios" ? 90 : 80,
+    // display: "none",
+    // elevation: 0, 
+    position: 'absolute', 
+    borderTopColor: 'transparent',
     justifyContent: 'center',
-  },
-});
+    borderWidth: 0,
+    elevation: 0,
+  }
+})
+
+const TabNavigation = () => {
+  return (
+    <Tab.Navigator 
+      initialRouteName="HomeNavigation"
+    screenOptions={{
+      tabBarStyle: styles.tabBarStyle,
+      tabBarHideOnKeyboard: true,
+      tabBarShowLabel: false,
+      headerShown: false
+    }}>
+      <Tab.Screen
+        name="HomeNavigation"
+        component={HomeNavigation}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                <Image source={require('./assets/home.png')} style={{
+                  height: 30,
+                  width: 30, 
+                  resizeMode: 'contain',
+                  tintColor: focused ? primary : '#A0A3B1'
+                }} />
+            </View>
+          )
+        }}
+      />
+
+      <Tab.Screen
+        name="RideNavigation"
+        component={RideNavigation}
+        options={({ route }) => ( {
+          // tabbar
+          tabBarIcon: ({ focused }) => (
+            <View style={{ alignItems: 'center', justifyContent: 'center', marginBottom: 50,
+            backgroundColor: primary, height: 80, width: 80, borderRadius: 40 }}>
+              <Image source={require('./assets/Scan.png')} style={{
+                  height: 30,
+                  width: 30,
+                  resizeMode: 'contain',
+                  tintColor: focused ? "#fff" : '#A0A3B1'
+                }} />
+            </View>
+          ),
+          tabBarStyle: ((route) => {
+              const routeName = getFocusedRouteNameFromRoute(route) ?? ""
+              console.log(routeName)
+              if (routeName == 'RideScreen') {
+                return { display: "none" }
+              }
+              return styles.tabBarStyle
+            })(route)
+          })
+        }
+      />
+
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                <Image source={require('./assets/profile.png')} style={{
+                  height: 30,
+                  width: 30,
+                  resizeMode: 'contain',
+                  tintColor: focused ? primary : '#A0A3B1'
+                }} />
+            </View>
+          )
+        }}
+      />
+
+    </Tab.Navigator>
+  )
+}
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <NavigationStack.Navigator 
+        initialRouteName="SignIn"
+      screenOptions={{ headerShown: false }}>
+        <NavigationStack.Screen name="Login" component={Login} />
+        <NavigationStack.Screen name="TabNavigation" component={TabNavigation} />
+      </NavigationStack.Navigator>
+    </NavigationContainer>
+  );
+  
+}
+
