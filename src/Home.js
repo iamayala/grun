@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Text, TouchableOpacity, View, Image, ImageBackground } from 'react-native'
 import { StatusBarHeight } from './constants'
+import WebView from 'react-native-webview';
 
 export class Home extends Component {
   render() {
@@ -39,6 +40,18 @@ export class Home extends Component {
         style={{
           flex: 1,
         }}/>
+
+        {/* <WebView
+          scalesPageToFit={false}
+          javaScriptEnabled={true}
+          javaScriptEnabledAndroid={true}
+          originWhitelist={['*']}
+          allowFileAccess={true}
+          allowUniversalAccessFromFileURLs={true}
+          allowFileAccessFromFileURLs={true}
+          source={{ uri: 'https://www.google.com/maps/@-1.949591,30.1011723,15z' }}
+          domStorageEnabled={true}
+          style={{ flex: 1 }}></WebView> */}
 
       </View>
     )

@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native'
 import { MaterialCommunityIcons,  MaterialIcons } from '@expo/vector-icons';
-import { StatusBarHeight, textColor, primary, lightColor } from './constants';
+import { StatusBarHeight, textColor, primary, lightColor, HEIGHT } from './constants';
 
 export class Profile extends Component {
   render() {
     return (
-      <ScrollView style={{
+      <View style={{
         flex: 1,
-        paddingTop: StatusBarHeight
+        paddingTop: StatusBarHeight,
+        backgroundColor: "#f7f7f7"
       }}>
+        <ScrollView>
+
         <View style={{
           flexDirection: "row",
           marginHorizontal: 15,
@@ -17,8 +20,8 @@ export class Profile extends Component {
           alignItems: "center"
         }}>
         <Image
-            source={require('../assets/icon.png')}
-            style={{ height: 100, width: 100, borderRadius: 50 }}
+            source={require('../assets/grunprofile.png')}
+            style={{ height: 100, width: 100, borderRadius: 50, backgroundColor: "#cecece" }}
         />
         <View style={{
           flex: 1,
@@ -38,17 +41,23 @@ export class Profile extends Component {
           marginHorizontal: 15,
           borderRadius: 15,
           padding: 15,
-          marginTop: 20
+          marginTop: 20,
         }}>
           <View style={{
             flexDirection: "row",
             alignItems: "center",
-            justifyContent: "space-between"
+            justifyContent: "space-between",
+            paddingBottom: 15,
+          borderBottomColor: "#7c7c7c",
+          borderBottomWidth: 1
           }}>
-            <Text>Wallet</Text>
+            <Image
+                source={require('../assets/logopay.png')}
+                style={{ height: 30, width: 100, resizeMode: "contain" }}
+            />
             <TouchableOpacity style={{
-              height: 35,
-              paddingHorizontal: 25,
+              height: 30,
+              paddingHorizontal: 20,
               backgroundColor: lightColor,
               justifyContent: "center",
               alignItems: 'center',
@@ -84,8 +93,8 @@ export class Profile extends Component {
 style={[styles.item, { marginTop: 30 }]}>
     <View style={styles.itemR}>
     <Image
-        source={require('../assets/arrow-left.png')}
-        style={{ height: 18, width: 18 }}
+        source={require('../assets/Chart.png')}
+        style={{ height: 23, width: 23 }}
     />
     <Text style={styles.itemFont}>Your Stats</Text>
     </View>
@@ -96,10 +105,21 @@ style={[styles.item, { marginTop: 30 }]}>
 style={styles.item}>
 <View style={styles.itemR}>
     <Image
-        source={require('../assets/arrow-left.png')}
-        style={{ height: 18, width: 18 }}
+        source={require('../assets/SubUser.png')}
+        style={{ height: 23, width: 23 }}
     />
     <Text style={styles.itemFont}>Sub Accounts</Text>
+    </View>
+    <MaterialIcons name="chevron-right" size={24} color="#777" />
+</TouchableOpacity>
+
+<TouchableOpacity style={styles.item}>
+<View style={styles.itemR}>
+    <Image
+        source={require('../assets/Document.png')}
+        style={{ height: 23, width: 23 }}
+    />
+    <Text style={styles.itemFont}>How it works</Text>
     </View>
     <MaterialIcons name="chevron-right" size={24} color="#777" />
 </TouchableOpacity>
@@ -108,8 +128,8 @@ style={styles.item}>
 style={styles.item}>
 <View style={styles.itemR}>
     <Image
-        source={require('../assets/arrow-left.png')}
-        style={{ height: 18, width: 18 }}
+        source={require('../assets/Setting.png')}
+        style={{ height: 23, width: 23 }}
     />
     <Text style={styles.itemFont}>Settings</Text>
     </View>
@@ -119,14 +139,33 @@ style={styles.item}>
 <TouchableOpacity style={styles.item}>
 <View style={styles.itemR}>
     <Image
-        source={require('../assets/arrow-left.png')}
-        style={{ height: 18, width: 18 }}
+        source={require('../assets/Chat.png')}
+        style={{ height: 23, width: 23 }}
     />
     <Text style={styles.itemFont}>Support</Text>
     </View>
     <MaterialIcons name="chevron-right" size={24} color="#777" />
 </TouchableOpacity>
+
+
+
+<TouchableOpacity style={styles.item}>
+<View style={styles.itemR}>
+    <Image
+        source={require('../assets/Logout.png')}
+        style={{ height: 23, width: 23 }}
+    />
+    <Text style={styles.itemFont}>Logout</Text>
+    </View>
+    <MaterialIcons name="chevron-right" size={24} color="#777" />
+</TouchableOpacity>
+
+<View style={{
+  height: HEIGHT * .2
+}} />
       </ScrollView>
+        </View>
+
     )
   }
 }
@@ -149,7 +188,7 @@ const styles = StyleSheet.create({
       flex: 1
   },
   itemFont: {
-      marginLeft: 15,
+      marginLeft: 20,
       color: "#444"
   }
 })

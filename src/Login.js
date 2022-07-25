@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { TouchableOpacity, View, Text, Image, TextInput, Alert, ActivityIndicator } from 'react-native'
-import { greyColor, lightColor, StatusBarHeight, primary, textColor } from './constants'
+import { greyColor, lightColor, StatusBarHeight, primary, textColor, WIDTH } from './constants'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import serverConfig from '../server.json';
+import PhoneInput from 'react-native-phone-number-input';
 
 export class Login extends Component {
     constructor(props) {
@@ -138,18 +139,36 @@ export class Login extends Component {
           <View style={{
             marginTop: 20
           }}>
-              <TextInput
-              placeholder='Phone Number'
-              keyboardType="phone-pad"
-              value={this.state.phone}
-              onChangeText={e => this.setState({ phone: e })}
-              placeholderTextColor={greyColor}
-              style={{
-                height: 63,
-                borderRadius: 15,
-                paddingHorizontal: 20,
-                backgroundColor: lightColor
-              }}/>
+
+                <PhoneInput
+                // ref={this.phone}
+                defaultValue={this.state.phone}
+                defaultCode="RW"
+                layout="first"
+                flagButtonStyle={{ 
+                    padding: 0, height: 40, 
+                    margin: 0, marginHorizontal: 0 }}
+                containerStyle={{
+                    height: 63,  marginTop: 15, 
+                    backgroundColor: lightColor, 
+                    borderRadius: 15, 
+                    paddingHorizontal: 5, 
+                    alignItems: 'center', 
+                    padding: 0,width: WIDTH - 40, 
+                    marginBottom: 0
+                }}
+                textContainerStyle={{ 
+                    paddingVertical: 0, 
+                    backgroundColor: 'transparent', 
+                    paddingHorizontal: 0 }}
+                textInputStyle={{ 
+                    flex: 1, paddingVertical: 0, 
+                    marginVertical: 0, paddingHorizontal: 0 , 
+                    backgroundColor: 'transparent' }}
+                codeTextStyle={{ paddingHorizontal: 0 }}
+                onChangeFormattedText={phone => this.setState({ phone })}
+                placeholderTextColor={greyColor}
+                />
 
                 <TextInput
                     placeholder='Password'
