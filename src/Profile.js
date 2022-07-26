@@ -102,6 +102,7 @@ style={[styles.item, { marginTop: 30 }]}>
 </TouchableOpacity>
 
 <TouchableOpacity 
+onPress={() => this.props.navigation.navigate("SubAccounts")}
 style={styles.item}>
 <View style={styles.itemR}>
     <Image

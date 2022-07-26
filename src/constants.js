@@ -24,4 +24,20 @@ export const HEIGHT = Dimensions.get('screen').height;
 export const primary = '#171717';
 export const textColor = '#3F414E';
 export const greyColor = '#A1A4B2';
-export const lightColor = '#F2F3F7'
+export const lightColor = '#F2F3F7';
+
+
+// exporrt language
+
+export const languages = [
+        {
+          language: "English",
+          flag: "https://www.countryflags.com/wp-content/uploads/united-kingdom-flag-png-large.png"
+        }, {
+          language: "French",
+          flag: "https://www.countryflags.com/wp-content/uploads/france-flag-png-large.png"
+        }, {
+          language: "Kinyarwanda",
+          flag: "https://www.countryflags.com/wp-content/uploads/rwanda-flag-png-large.png"
+        }
+    ]

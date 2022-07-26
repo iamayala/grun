@@ -13,6 +13,7 @@ import Scan from './src/Scan';
 import Login from './src/Login';
 import { primary } from './src/constants';
 import RideScreen from './src/RideScreen';
+import SubAccounts from './src/SubAccounts';
 
 const Tab = createBottomTabNavigator();
 const NavigationStack = createStackNavigator();
@@ -33,6 +34,17 @@ const RideNavigation = () => {
       screenOptions={{ headerShown: false }}>
       <NavigationStack.Screen name="Scan" component={Scan} />
       <NavigationStack.Screen name="RideScreen" component={RideScreen} />
+    </NavigationStack.Navigator>
+  )
+}
+
+
+const ProfileNavigation = () => {
+  return (
+    <NavigationStack.Navigator
+      screenOptions={{ headerShown: false }}>
+      <NavigationStack.Screen name="Profile" component={Profile} />
+      <NavigationStack.Screen name="SubAccounts" component={SubAccounts} />
     </NavigationStack.Navigator>
   )
 }
@@ -107,9 +119,9 @@ const TabNavigation = () => {
       />
 
       <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{
+        name="ProfileNavigation"
+        component={ProfileNavigation}
+        options={({ route }) =>  ({
           tabBarIcon: ({ focused }) => (
             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <Image source={require('./assets/profile.png')} style={{
@@ -119,8 +131,16 @@ const TabNavigation = () => {
                   tintColor: focused ? primary : '#A0A3B1'
                 }} />
             </View>
-          )
-        }}
+          ),
+          tabBarStyle: ((route) => {
+            const routeName = getFocusedRouteNameFromRoute(route) ?? ""
+            console.log(routeName)
+            if (routeName == 'SubAccounts') {
+              return { display: "none" }
+            }
+            return styles.tabBarStyle
+          })(route)
+        })}
       />
 
     </Tab.Navigator>
