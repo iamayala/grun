@@ -6,7 +6,7 @@ export class RideScreen extends Component {
   render() {
     return (
         <View style={{
-            paddingTop: StatusBarHeight,
+            // paddingTop: StatusBarHeight,
             flex: 1
           }}>
             <ImageBackground 
@@ -44,7 +44,7 @@ export class RideScreen extends Component {
                             justifyContent: "center"
                         }}>
                             <Text style={{ color: "#fff",  }}>Time Elapsed</Text>
-                            <Text style={{ color: "#fff", fontSize: 26, fontWeight: "600", marginVertical: 15 }}>62</Text>
+                            <Text style={{ color: "#fff", fontSize: 26, fontWeight: "600", marginVertical: 15 }}>7</Text>
                             <Text style={{ color: "#fff" }}>minutes</Text>
                         </View>
                         <View style={{
@@ -72,7 +72,7 @@ export class RideScreen extends Component {
 
                         }}>
                             <Text style={{ color: "#fff" }}>Distance Covered</Text>
-                            <Text style={{ color: "#fff", fontSize: 26, fontWeight: "600", marginVertical: 15 }}>129</Text>
+                            <Text style={{ color: "#fff", fontSize: 26, fontWeight: "600", marginVertical: 15 }}>257</Text>
                             <Text style={{ color: "#fff" }}>meters</Text>
                         </View>
                         <View style={{
@@ -85,7 +85,7 @@ export class RideScreen extends Component {
                             marginTop: 5
                         }}>
                             <Text style={{ color: "#fff" }}>Amount Consumed</Text>
-                            <Text style={{ color: "#fff", fontSize: 26, fontWeight: "600", marginVertical: 15 }}>1250</Text>
+                            <Text style={{ color: "#fff", fontSize: 26, fontWeight: "600", marginVertical: 15 }}>689</Text>
                             <Text style={{ color: "#fff" }}>RWF</Text>
                         </View>
                     </View>
@@ -103,7 +103,7 @@ export class RideScreen extends Component {
                         marginTop: 15,
                         marginBottom: 20
                     }}>
-                        <Text style={{ color: "#fff" }}>STOP RIDE</Text>
+                        <Text style={{ color: "#fff", fontSize: 16 }}>STOP RIDE</Text>
                     </TouchableOpacity>
                     </View>
                 </View>

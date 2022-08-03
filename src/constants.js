@@ -41,3 +41,27 @@ export const languages = [
           flag: "https://www.countryflags.com/wp-content/uploads/rwanda-flag-png-large.png"
         }
     ]
+
+
+// profiles
+export const profiles = [
+  {
+          id: 1,
+          image: "https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png",
+          name: "John Smith",
+        },
+        {
+          id: 2,
+          image: "https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png",
+          name: "Jane Smith",
+        },{
+          id: 3,
+          image: "https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png",
+          name: "Patrick Smith",
+        },
+        {
+          id: 4,
+          image: "https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png",
+          name: "Billie Smith",
+        }
+]

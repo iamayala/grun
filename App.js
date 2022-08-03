@@ -14,6 +14,7 @@ import Login from './src/Login';
 import { primary } from './src/constants';
 import RideScreen from './src/RideScreen';
 import SubAccounts from './src/SubAccounts';
+import Splash from './src/Splash';
 
 const Tab = createBottomTabNavigator();
 const NavigationStack = createStackNavigator();
@@ -151,8 +152,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <NavigationStack.Navigator 
-        initialRouteName="SignIn"
+        initialRouteName="Splash"
       screenOptions={{ headerShown: false }}>
+        <NavigationStack.Screen name="Splash" component={Splash} />
         <NavigationStack.Screen name="Login" component={Login} />
         <NavigationStack.Screen name="TabNavigation" component={TabNavigation} />
       </NavigationStack.Navigator>

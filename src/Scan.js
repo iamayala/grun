@@ -72,7 +72,9 @@ export class Scan extends Component {
           justifyContent: "space-around"
         }}>
 
-              <TouchableOpacity style={{
+              <TouchableOpacity 
+              onPress={() => this.props.navigation.navigate("RideScreen")}              
+              style={{
                       height: 70,
                       width: 70,
                       marginTop: HEIGHT * .1,
