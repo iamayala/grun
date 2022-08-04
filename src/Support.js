@@ -61,15 +61,20 @@ export class Support extends Component {
           right: 15,
           bottom: 50,
           zIndex: 1,
-          flexDirection: "row",
+          justifyContent :"center",
           alignItems: "center",
-          height: 50,
-          borderRadius: 10,
-          paddingHorizontal: 20,
-          maxWidth: WIDTH * .75 }}>
-          <Text style={{
-            color: "#fff"
-          }}>Hello, Can I Help You With Something Today?</Text>
+          height: 63,
+          width: 63,
+          borderRadius: 50,
+          }}>
+          <Image 
+            source={require('../assets/Chat.png')} 
+            style={{
+                height: 30,
+                width: 30,
+                tintColor: lightColor,
+                resizeMode: 'contain'
+            }} />
         </TouchableOpacity>
 
         <FlatList

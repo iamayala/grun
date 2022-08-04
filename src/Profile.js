@@ -19,8 +19,8 @@ export class Profile extends Component {
           marginTop: 40,
           alignItems: "center"
         }}>
-        <Image
-            source={require('../assets/grunprofile.png')}
+        <Image 
+            source={require('../assets/grunprofile.png')} 
             style={{ height: 100, width: 100, borderRadius: 50, backgroundColor: lightColor }}
         />
         <View style={{
@@ -55,7 +55,9 @@ export class Profile extends Component {
                 source={require('../assets/logopay.png')}
                 style={{ height: 30, width: 100, resizeMode: "contain" }}
             />
-            <TouchableOpacity style={{
+            <TouchableOpacity 
+            onPress={() => this.props.navigation.navigate("Recharge")}
+            style={{
               height: 30,
               paddingHorizontal: 20,
               backgroundColor: lightColor,
@@ -129,6 +131,7 @@ style={styles.item}>
 </TouchableOpacity>
 
 <TouchableOpacity 
+onPress={() => this.props.navigation.navigate("AppSettings")}
 style={styles.item}>
 <View style={styles.itemR}>
     <Image

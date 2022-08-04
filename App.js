@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 
-import { Text, View, Image, StyleSheet, Platform } from 'react-native';
+import { Text, View, Image, StyleSheet, Platform, Settings } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { getFocusedRouteNameFromRoute, NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -18,6 +18,8 @@ import Splash from './src/Splash';
 import Stats from './src/Stats';
 import HowTo from './src/HowTo';
 import Support from './src/Support';
+import Recharge from './src/Recharge';
+import AppSettings from './src/Settings';
 
 const Tab = createBottomTabNavigator();
 const NavigationStack = createStackNavigator();
@@ -35,6 +37,7 @@ const HomeNavigation = () => {
 const RideNavigation = () => {
   return (
     <NavigationStack.Navigator
+      initialRouteName="Scan"
       screenOptions={{ headerShown: false }}>
       <NavigationStack.Screen name="Scan" component={Scan} />
       <NavigationStack.Screen name="RideScreen" component={RideScreen} />
@@ -52,6 +55,8 @@ const ProfileNavigation = () => {
       <NavigationStack.Screen name="Stats" component={Stats} />
       <NavigationStack.Screen name="HowTo" component={HowTo} />
       <NavigationStack.Screen name="Support" component={Support} />
+      <NavigationStack.Screen name="Recharge" component={Recharge} />
+      <NavigationStack.Screen name="AppSettings" component={AppSettings} />
     </NavigationStack.Navigator>
   )
 }
@@ -141,8 +146,14 @@ const TabNavigation = () => {
           ),
           tabBarStyle: ((route) => {
             const routeName = getFocusedRouteNameFromRoute(route) ?? ""
-            console.log(routeName)
-            if (routeName == "SubAccounts" || routeName == "Stats" || routeName == "HowTo" || routeName == "Support" ) {
+            // console.log(routeName)
+            if (
+              routeName == "SubAccounts" || 
+              routeName == "Stats" || 
+              routeName == "HowTo" || 
+              routeName == "Support" ||
+              routeName == "Recharge" ||
+              routeName == "AppSettings" ) {
               return { display: "none" }
             }
             return styles.tabBarStyle
