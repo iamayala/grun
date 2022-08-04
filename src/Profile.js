@@ -21,7 +21,7 @@ export class Profile extends Component {
         }}>
         <Image
             source={require('../assets/grunprofile.png')}
-            style={{ height: 100, width: 100, borderRadius: 50, backgroundColor: "#cecece" }}
+            style={{ height: 100, width: 100, borderRadius: 50, backgroundColor: lightColor }}
         />
         <View style={{
           flex: 1,
@@ -90,6 +90,7 @@ export class Profile extends Component {
         </View>
 
 <TouchableOpacity 
+onPress={() => this.props.navigation.navigate("Stats")}
 style={[styles.item, { marginTop: 30 }]}>
     <View style={styles.itemR}>
     <Image
@@ -114,7 +115,9 @@ style={styles.item}>
     <MaterialIcons name="chevron-right" size={24} color="#777" />
 </TouchableOpacity>
 
-<TouchableOpacity style={styles.item}>
+<TouchableOpacity 
+onPress={() => this.props.navigation.navigate("HowTo")}
+style={styles.item}>
 <View style={styles.itemR}>
     <Image
         source={require('../assets/Document.png')}
@@ -137,7 +140,9 @@ style={styles.item}>
     <MaterialIcons name="chevron-right" size={24} color="#777" />
 </TouchableOpacity>
 
-<TouchableOpacity style={styles.item}>
+<TouchableOpacity 
+onPress={() => this.props.navigation.navigate("Support")}
+style={styles.item}>
 <View style={styles.itemR}>
     <Image
         source={require('../assets/Chat.png')}

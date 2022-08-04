@@ -47,14 +47,13 @@ export class Home extends Component {
         }}>
           <View>
           <Image source={require('../assets/grunappblack.png')} style={{
-                      height: 60,
-                      width: 140,
+                      height: 70,
+                      width: 160,
                       resizeMode: 'contain',
-                      // backgroundColor: "red"
                   }} />
           </View>
           <TouchableOpacity
-          onPress={() => this.setState({ languageModal: true })}>
+          onPress={() => this.setState({ languageModal: true })}> 
                 <Image source={{ uri: activeLanguage.flag }} style={{
                       height: 30,
                       width: 30,

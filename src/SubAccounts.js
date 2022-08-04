@@ -188,6 +188,7 @@ export class SubAccounts extends Component {
                     onChangeText={e => this.setState({ amount: e })}
                     placeholderTextColor={greyColor}
                     style={{
+                      flex: 1
                     }} />
                 </View>
 

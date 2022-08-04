@@ -15,6 +15,9 @@ import { primary } from './src/constants';
 import RideScreen from './src/RideScreen';
 import SubAccounts from './src/SubAccounts';
 import Splash from './src/Splash';
+import Stats from './src/Stats';
+import HowTo from './src/HowTo';
+import Support from './src/Support';
 
 const Tab = createBottomTabNavigator();
 const NavigationStack = createStackNavigator();
@@ -46,6 +49,9 @@ const ProfileNavigation = () => {
       screenOptions={{ headerShown: false }}>
       <NavigationStack.Screen name="Profile" component={Profile} />
       <NavigationStack.Screen name="SubAccounts" component={SubAccounts} />
+      <NavigationStack.Screen name="Stats" component={Stats} />
+      <NavigationStack.Screen name="HowTo" component={HowTo} />
+      <NavigationStack.Screen name="Support" component={Support} />
     </NavigationStack.Navigator>
   )
 }
@@ -136,7 +142,7 @@ const TabNavigation = () => {
           tabBarStyle: ((route) => {
             const routeName = getFocusedRouteNameFromRoute(route) ?? ""
             console.log(routeName)
-            if (routeName == 'SubAccounts') {
+            if (routeName == "SubAccounts" || routeName == "Stats" || routeName == "HowTo" || routeName == "Support" ) {
               return { display: "none" }
             }
             return styles.tabBarStyle
