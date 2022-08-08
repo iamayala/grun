@@ -25,7 +25,7 @@ export const primary = '#171717';
 export const textColor = '#3F414E';
 export const greyColor = '#A1A4B2';
 export const lightColor = '#F2F3F7';
-
+export const blueColor = '#0066cc';
 
 // exporrt language
 
