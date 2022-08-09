@@ -69,25 +69,25 @@ export const profiles = [
 export const howTo = [
   {
     id: 1,
-    image: "https://raw.githubusercontent.com/iamayala/sileeence/master/assets/hellobg.png?token=GHSAT0AAAAAABUJLQS22ZAETNS4EWWZUNKMYXLNKIQ",
+    image: require("../assets/Locate.png"),
     title: "If you haven't seen Game of Thrones",
     description: "If you haven't seen Game of Thrones, go watch it right now. If you have then you'll totally get why this Hodor themed lorem ipsum generator is just brilliant."
   },
   {
     id: 2,
-    image: "https://raw.githubusercontent.com/iamayala/sileeence/master/assets/hellobg.png?token=GHSAT0AAAAAABUJLQS22ZAETNS4EWWZUNKMYXLNKIQ",
+    image: require("../assets/ScanQR.png"),
     title: "In case you don't read Twitter",
     description: "In case you don't read Twitter, the news, or just can't get enough of The Apprentice host's legendary oration, try this Trump lorem ipsum generator on for size."
   },
   {
     id: 3,
-    image: "https://raw.githubusercontent.com/iamayala/sileeence/master/assets/hellobg.png?token=GHSAT0AAAAAABUJLQS22ZAETNS4EWWZUNKMYXLNKIQ",
+    image: require("../assets/EnjoyRide.png"),
     title: "A handcrafted, small-batch.",
     description: "A handcrafted, small-batch, artisinal pour-over version of the classic lorem ipsum generator, Hipster Ipsum will give your mocks that blue collar touch."
   },
   {
     id: 4,
-    image: "https://raw.githubusercontent.com/iamayala/sileeence/master/assets/hellobg.png?token=GHSAT0AAAAAABUJLQS22ZAETNS4EWWZUNKMYXLNKIQ",
+    image: require("../assets/PayWithApp.png"),
     title: "Raise your design from the dead",
     description: "Raise your design from the dead with an army of Zombie Ipsum, frightful filler text that just won't die. Try the lorem ipsum of the undead if you dare..."
   }

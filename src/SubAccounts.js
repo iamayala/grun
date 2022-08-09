@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, Image,FlatList, ScrollView, Platform, ActivityIndicator, TextInput } from 'react-native'
-import { StatusBarHeight, textColor, WIDTH, lightColor, primary, profiles, greyColor } from './constants'
+import { StatusBarHeight, textColor, WIDTH, lightColor, primary, profiles, greyColor, HEIGHT } from './constants'
 import Modal from "react-native-modal";
 import { MaterialIcons } from '@expo/vector-icons';
 
@@ -63,6 +63,61 @@ export class SubAccounts extends Component {
 
         <ScrollView>
 
+          { profiles.length == 0 ?
+          <View>
+
+            <View style={{
+              alignItems: "center",justifyContent: "center"
+            }}>
+              <Image source={require("../assets/CoinHand.png")} style={{
+                  height: HEIGHT * .40,
+                  width: WIDTH * .8,
+                  resizeMode: 'contain',
+              }} />
+
+            </View>
+
+
+
+            <View style={{
+                marginBottom: 10,
+                marginHorizontal: 30
+            }}>
+                <Text style={{
+                    fontSize: 30,
+                        color: textColor,
+                        textAlign: 'center',
+                        marginTop: 10,
+                        fontWeight: 'bold'
+                }}>No Sub Accounts Yet</Text>
+                <Text style={{
+                        color: textColor,
+                        fontSize: 16,
+                        marginTop: 10,
+                        textAlign: 'center'
+                }}>You can Share your balance with your friends</Text>
+            </View>
+
+            <TouchableOpacity
+                onPress={() => this.setState({ addSubAccount: true })}
+                style={{
+                    marginTop: 25,
+                    height: 63,
+                    marginHorizontal: 20,
+                    backgroundColor: primary,
+                    justifyContent: "center",
+                    alignItems: 'center',
+                    borderRadius: 38,
+                    marginBottom: 20
+                }}>
+                <Text style={{
+                    color: lightColor,
+                }}>Add Sub Account</Text>
+            </TouchableOpacity>
+
+            
+          </View> :
+
           <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
             { profiles.map((item, index) => {
               return(
@@ -111,7 +166,7 @@ export class SubAccounts extends Component {
             <MaterialIcons name="add" size={60} color="#757575" />
           </TouchableOpacity>
 
-          </View>
+          </View>  }
 
 
 

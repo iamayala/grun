@@ -9,14 +9,15 @@ export class RideScreen extends Component {
       super(props)
     
       this.state = {
-         YouAreStoppingModal: false
+         YouAreStoppingModal: false,
+         ConfirmPaymentModal: true
       }
     }
 
 
   render() {
 
-    const  { YouAreStoppingModal } = this.state
+    const  { YouAreStoppingModal, ConfirmPaymentModal } = this.state
 
     return (
         <View style={{
@@ -139,8 +140,8 @@ export class RideScreen extends Component {
                     alignItems :"center"
                 }}>
                     <Image 
-                        source={require('../assets/grunprofile.png')} 
-                        style={{ height: 120, width: 120, borderRadius: 60, backgroundColor: lightColor }}
+                        source={require('../assets/TapAndDrag.png')} 
+                        style={{ height: 120, width: 120 }}
                     />
                 </View>
 
@@ -209,6 +210,78 @@ export class RideScreen extends Component {
             </View>
 
           </Modal>
+
+
+          {/* Payment Modal */}
+          <Modal 
+          onBackdropPress={() => this.setState({ ConfirmPaymentModal: false })}
+          isVisible={ConfirmPaymentModal}>
+            <View style={{
+              backgroundColor: "#fff",
+              borderRadius: 15,
+              paddingHorizontal: 15,
+              paddingVertical: 15
+            }}>
+
+                <View style={{
+                    alignItems :"center"
+                }}>
+                    <Image 
+                        source={require('../assets/CardUse.png')} 
+                        style={{ height: 120, width: 120 }}
+                    />
+                </View>
+
+                <View style={{
+                    marginBottom: 10,
+                    marginHorizontal: 30
+                }}>
+
+
+                    <Text style={{
+                        fontSize: 20,
+                            color: textColor,
+                            textAlign: 'center',
+                            marginTop: 10,
+                            fontWeight: 'bold'
+                    }}>Payment</Text>
+                    <Text style={{
+                            color: textColor,
+                            fontSize: 16,
+                            marginTop: 10,
+                            textAlign: 'center'
+                    }}>In case you don't read Twitter, the news, or just can't get enough of The Apprentice host's legendary oration, try this Trump lorem ipsum generator on for size.</Text>
+                </View>
+
+              <View style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginTop: 10,
+                marginBottom: 10
+              }}>
+                <TouchableOpacity
+                    onPress={() => this.setState({ ConfirmPaymentModal: false })}
+                    style={{
+                        height: 63,
+                        flex: 1,
+                        marginRight: 5,
+                        backgroundColor: primary,
+                        justifyContent: "center",
+                        alignItems: 'center',
+                        borderRadius: 38,
+                    }}>
+                    <Text style={{
+                        color: '#F6F1FB',
+                    }}>Yes, I agree</Text>
+                </TouchableOpacity>
+
+              </View>
+
+              
+            </View>
+
+          </Modal>
+
         </View>
     )
   }

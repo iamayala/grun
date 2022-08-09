@@ -40,6 +40,15 @@ export class HowTo extends Component {
                     <View style={{
                         width: WIDTH
                     }}>
+
+                        <Image source={item.image} style={{
+                            height: HEIGHT * .45,
+                            width: WIDTH,
+                            resizeMode: 'contain'
+                        }} />
+
+
+
                         <View style={{
                             marginBottom: 10,
                             marginHorizontal: 30
@@ -59,32 +68,23 @@ export class HowTo extends Component {
                             }}>{item.description}</Text>
                         </View>
 
-                        <Image source={{ uri: "https://raw.githubusercontent.com/iamayala/sileeence/master/assets/hellobg.png?token=GHSAT0AAAAAABUJLQS22ZAETNS4EWWZUNKMYXLNKIQ" }} style={{
-                            height: HEIGHT * .6,
-                            width: WIDTH,
-                            resizeMode: 'cover'
-                        }} />
-
+                        
                         { item.id == 4 &&
 
                         <TouchableOpacity
                             onPress={() => this.props.navigation.navigate("Profile")}
                             style={{
-                                position: 'absolute',
-                                bottom: HEIGHT * .15,
+                                marginTop: 25,
                                 height: 63,
-                                // width: "100%",
-                                left: 0,
-                                right: 0,
                                 marginHorizontal: 20,
-                                backgroundColor: '#EBEAEC',
+                                backgroundColor: primary,
                                 justifyContent: "center",
                                 alignItems: 'center',
                                 borderRadius: 38,
                                 marginBottom: 20
                             }}>
                             <Text style={{
-                                color: textColor,
+                                color: lightColor,
                             }}>Next</Text>
                         </TouchableOpacity> }
                     </View>

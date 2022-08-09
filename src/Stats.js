@@ -1,15 +1,25 @@
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, ImageBackground, Image, ScrollView } from 'react-native'
-import { HEIGHT, lightColor, primary, StatusBarHeight, textColor } from './constants'
+import { HEIGHT, lightColor, primary, StatusBarHeight, textColor, WIDTH } from './constants'
 
 export class Stats extends Component {
+    constructor(props) {
+      super(props)
+    
+      this.state = {
+         emptyStats: true
+      }
+    }
   render() {
+    const { emptyStats } = this.state
     return (
         <View style={{
             paddingTop: StatusBarHeight,
             flex: 1,
             backgroundColor: '#fff'
           }}>
+            
+            
             <ScrollView style={{
                 paddingHorizontal: 20,
             }}>
@@ -36,6 +46,44 @@ export class Stats extends Component {
                 marginBottom: 20,
                 marginHorizontal: 5
             }}>My Stats</Text>
+
+            { emptyStats  ?
+        <View>
+
+            <View style={{
+              alignItems: "center",justifyContent: "center"
+            }}>
+              <Image source={require("../assets/Search.png")} style={{
+                  height: HEIGHT * .40,
+                  width: WIDTH * .8,
+                  resizeMode: 'contain',
+              }} />
+
+            </View>
+
+
+
+            <View style={{
+                marginBottom: 10,
+                marginHorizontal: 30
+            }}>
+                <Text style={{
+                    fontSize: 30,
+                        color: textColor,
+                        textAlign: 'center',
+                        marginTop: 10,
+                        fontWeight: 'bold'
+                }}>No Stats Yet</Text>
+                <Text style={{
+                        color: textColor,
+                        fontSize: 16,
+                        marginTop: 10,
+                        textAlign: 'center'
+                }}>You haven't completed your first ride yet</Text>
+            </View>
+
+            
+          </View> :
 
             <View style={{
                 paddingBottom: 15
@@ -147,8 +195,8 @@ export class Stats extends Component {
                 
                 <View>
                 </View>
-            </View>
-            </ScrollView>
+            </View> }
+            </ScrollView>  
 
         </View>
     )

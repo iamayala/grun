@@ -121,6 +121,8 @@ export class Login extends Component {
         if (reg.length != 9 || reg[0] != 7) {
             this.setState({ 
                 ErrorModal: true, 
+                phone: "", 
+                password: "",
                 ErrorMessage: "Please provide the right phone number format. \nExample: 780000000", 
                 ErrorTitle: "Wrong Phone Number" })
         } else {
@@ -147,6 +149,78 @@ export class Login extends Component {
           paddingHorizontal: 20,
           backgroundColor: '#fff'
       }}>
+
+        <Modal 
+            onBackdropPress={() => this.setState({ ErrorModal: false })}
+            isVisible={ErrorModal}
+            backdropOpacity={.6}>
+            <View style={{
+              backgroundColor: "#fff",
+              borderRadius: 15,
+              paddingHorizontal: 15,
+              paddingVertical: 15
+            }}>
+
+                <View style={{
+                    alignItems :"center"
+                }}>
+                    <Image 
+                        source={require('../assets/Error.png')} 
+                        style={{ height: 120, width: 120, borderRadius: 60 }}
+                    />
+                </View>
+
+                <View style={{
+                    marginBottom: 10,
+                    marginHorizontal: 30
+                }}>
+
+
+                    <Text style={{
+                        fontSize: 20,
+                            color: textColor,
+                            textAlign: 'center',
+                            marginTop: 10,
+                            fontWeight: 'bold'
+                    }}>{ErrorTitle}</Text>
+                    <Text style={{
+                            color: textColor,
+                            fontSize: 16,
+                            marginTop: 10,
+                            textAlign: 'center'
+                    }}>{ErrorMessage}</Text>
+                </View>
+
+              <View style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginTop: 10,
+                marginBottom: 10
+              }}>
+                <TouchableOpacity
+                    onPress={() => this.setState({ ErrorModal: false })}
+                    style={{
+                        height: 63,
+                        flex: 1,
+                        marginRight: 5,
+                        backgroundColor: primary,
+                        justifyContent: "center",
+                        alignItems: 'center',
+                        borderRadius: 38,
+                    }}>
+                    <Text style={{
+                        color: '#F6F1FB',
+                    }}>Try Again</Text>
+                </TouchableOpacity>
+
+                
+
+              </View>
+
+              
+            </View>
+
+          </Modal>
 
           <View>
               <TouchableOpacity>
@@ -289,14 +363,14 @@ export class Login extends Component {
           </View>
 
             <TouchableOpacity
-                onPress={() => {
-                    this.state.phone == "" ?
-                    this.setState({phone_err: true}) :
-                    this.state.password == "" ?
-                    this.setState({pwd_err: true}) :
-                    this.ValidatePhone(this.state.phone)}}
+                // onPress={() => {
+                //     this.state.phone == "" ?
+                //     this.setState({phone_err: true}) :
+                //     this.state.password == "" ?
+                //     this.setState({pwd_err: true}) :
+                //     this.ValidatePhone(this.state.phone)}}
 
-                // onPress={() => this.props.navigation.navigate("TabNavigation")}
+                onPress={() => this.props.navigation.navigate("TabNavigation")}
                 style={{
                     height: 63,
                     backgroundColor: primary,
@@ -340,76 +414,7 @@ export class Login extends Component {
             </Modal>
 
 
-            <Modal 
-          onBackdropPress={() => this.setState({ ErrorModal: false })}
-          isVisible={ErrorModal}>
-            <View style={{
-              backgroundColor: "#fff",
-              borderRadius: 15,
-              paddingHorizontal: 15,
-              paddingVertical: 15
-            }}>
-
-                <View style={{
-                    alignItems :"center"
-                }}>
-                    <Image 
-                        source={require('../assets/grunprofile.png')} 
-                        style={{ height: 120, width: 120, borderRadius: 60, backgroundColor: lightColor }}
-                    />
-                </View>
-
-                <View style={{
-                    marginBottom: 10,
-                    marginHorizontal: 30
-                }}>
-
-
-                    <Text style={{
-                        fontSize: 20,
-                            color: textColor,
-                            textAlign: 'center',
-                            marginTop: 10,
-                            fontWeight: 'bold'
-                    }}>{ErrorTitle}</Text>
-                    <Text style={{
-                            color: textColor,
-                            fontSize: 16,
-                            marginTop: 10,
-                            textAlign: 'center'
-                    }}>{ErrorMessage}</Text>
-                </View>
-
-              <View style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginTop: 10,
-                marginBottom: 10
-              }}>
-                <TouchableOpacity
-                    onPress={() => this.setState({ ErrorModal: false })}
-                    style={{
-                        height: 63,
-                        flex: 1,
-                        marginRight: 5,
-                        backgroundColor: primary,
-                        justifyContent: "center",
-                        alignItems: 'center',
-                        borderRadius: 38,
-                    }}>
-                    <Text style={{
-                        color: '#F6F1FB',
-                    }}>Try Again</Text>
-                </TouchableOpacity>
-
-                
-
-              </View>
-
-              
-            </View>
-
-          </Modal>
+            
 
       </View>
     )

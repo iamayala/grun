@@ -151,8 +151,8 @@ export class Scan extends Component {
                     alignItems :"center"
                 }}>
                     <Image 
-                        source={require('../assets/grunprofile.png')} 
-                        style={{ height: 120, width: 120, borderRadius: 60, backgroundColor: lightColor }}
+                        source={require('../assets/Choose.png')} 
+                        style={{ height: 120, width: 120 }}
                     />
                 </View>
 
@@ -168,13 +168,13 @@ export class Scan extends Component {
                             textAlign: 'center',
                             marginTop: 10,
                             fontWeight: 'bold'
-                    }}>Before You Go</Text>
+                    }}>There You Go</Text>
                     <Text style={{
                             color: textColor,
                             fontSize: 16,
                             marginTop: 10,
                             textAlign: 'center'
-                    }}>In case you don't read Twitter, the news, or just can't get enough of The Apprentice host's legendary oration, try this Trump lorem ipsum generator on for size.</Text>
+                    }}>In case you don't read Twitter, the news, or just can't get enough of The Apprentice host's.</Text>
                 </View>
 
               <View style={{
@@ -241,8 +241,8 @@ export class Scan extends Component {
                     alignItems :"center"
                 }}>
                     <Image 
-                        source={require('../assets/grunprofile.png')} 
-                        style={{ height: 120, width: 120, borderRadius: 60, backgroundColor: lightColor }}
+                        source={require('../assets/Search.png')} 
+                        style={{ height: 120, width: 120 }}
                     />
                 </View>
 
