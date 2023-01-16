@@ -4,12 +4,17 @@ import colors from "../constants/colors";
 import { WIDTH } from "../constants/constants";
 import fonts from "../constants/fonts";
 
-function StatCard({ title, value, metric }) {
+type Props = {
+	title: string;
+	value: number;
+	metric: string;
+};
+
+function StatCard({ title, value, metric }: Props) {
 	return (
 		<View
 			style={{
 				backgroundColor: colors.primary,
-				// flex: 1,
 				borderRadius: 15,
 				marginHorizontal: 5,
 				alignItems: "center",

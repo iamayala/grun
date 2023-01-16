@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import {
 	Text,
 	View,
@@ -9,8 +9,12 @@ import {
 	Settings,
 } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+import {
+	getFocusedRouteNameFromRoute,
+	NavigationContainer,
+} from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import i18n from "../utils/i18n/locales";
 
 // screens
 import Home from "../screens/Home";
@@ -27,9 +31,30 @@ import Recharge from "../screens/Recharge";
 import AppSettings from "../screens/Settings";
 import colors from "../constants/colors";
 import ChatSupport from "../screens/ChatSupport";
+import LocalizationContext from "../utils/LocalizationContext";
+import { setInitialLanguage } from "../utils/device";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 const Tab = createBottomTabNavigator();
-const NavigationStack = createStackNavigator();
+const NavigationStack = createStackNavigator<RootStackParamList>();
+
+export type RootStackParamList = {
+	Home: undefined;
+	Scan: undefined;
+	RideScreen: undefined;
+	Profile: undefined;
+	SubAccounts: undefined;
+	Stats: undefined;
+	HowTo: undefined;
+	Support: undefined;
+	Recharge: undefined;
+	AppSettings: undefined;
+	ChatSupport: undefined;
+	Splash: undefined;
+	Login: undefined;
+	TabNavigation: undefined;
+};
 
 const HomeNavigation = () => {
 	return (
@@ -51,7 +76,7 @@ const RideNavigation = () => {
 	);
 };
 
-const ProfileNavigation = ({ navigation, route }) => {
+const ProfileNavigation = ({ navigation, route }: any) => {
 	React.useLayoutEffect(() => {
 		const routeName = getFocusedRouteNameFromRoute(route);
 		var routeArray = [
@@ -87,8 +112,6 @@ const styles = StyleSheet.create({
 	tabBarStyle: {
 		backgroundColor: colors.backgroundColor,
 		height: Platform.OS == "ios" ? 90 : 80,
-		// display: "none",
-		// elevation: 0,
 		position: "absolute",
 		borderTopColor: "transparent",
 		justifyContent: "center",
@@ -132,7 +155,6 @@ const TabNavigation = () => {
 				name="RideNavigation"
 				component={RideNavigation}
 				options={({ route }) => ({
-					// tabbar
 					tabBarIcon: ({ focused }) => (
 						<View
 							style={{
@@ -204,27 +226,47 @@ const TabNavigation = () => {
 };
 
 function MainNavigation() {
+	const { language } = useSelector((state: RootState) => state.account);
+	const [locale, setLocale] = useState<string | null>(null);
+
+	const localizationContext = useMemo(
+		() => ({
+			t: (scope: any, options: any) => i18n().t(scope, { locale, ...options }),
+			locale,
+			setLocale,
+		}),
+		[locale]
+	);
+
+	useEffect(() => {
+		setInitialLanguage(language, setLocale);
+	}, []);
+
 	return (
-		<NavigationStack.Navigator
-			initialRouteName="Splash"
-			screenOptions={{ headerShown: false }}
-		>
-			<NavigationStack.Screen
-				name="Splash"
-				component={Splash}
-				options={{ gestureEnabled: false }}
-			/>
-			<NavigationStack.Screen
-				name="Login"
-				component={Login}
-				options={{ gestureEnabled: false }}
-			/>
-			<NavigationStack.Screen
-				name="TabNavigation"
-				component={TabNavigation}
-				options={{ gestureEnabled: false }}
-			/>
-		</NavigationStack.Navigator>
+		<LocalizationContext.Provider value={localizationContext}>
+			<NavigationContainer>
+				<NavigationStack.Navigator
+					initialRouteName="Splash"
+					screenOptions={{ headerShown: false }}
+				>
+					<NavigationStack.Screen
+						name="Splash"
+						component={Splash}
+						options={{ gestureEnabled: false }}
+					/>
+					<NavigationStack.Screen
+						name="Login"
+						component={Login}
+						options={{ gestureEnabled: false }}
+					/>
+					<NavigationStack.Screen
+						name="TabNavigation"
+						component={TabNavigation}
+						options={{ gestureEnabled: false }}
+					/>
+				</NavigationStack.Navigator>
+			</NavigationContainer>
+		</LocalizationContext.Provider>
 	);
 }
 

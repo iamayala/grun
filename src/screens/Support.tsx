@@ -89,7 +89,7 @@ function Support({ navigation }) {
 					data={FAQ}
 					keyExtractor={(item) => item.id.toString()}
 					showsVerticalScrollIndicator={false}
-					renderItem={({ item }) => {
+					renderItem={({ item }: any) => {
 						return (
 							<TouchableOpacity
 								onPress={() => setActiveQuestion(item)}

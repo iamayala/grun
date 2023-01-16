@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Text, View, TouchableOpacity, Image, ScrollView } from "react-native";
 import AppScreen from "../components/AppScreen";
 import StatCard from "../components/StatCard";
 import colors from "../constants/colors";
-import { HEIGHT, StatusBarHeight, WIDTH } from "../constants/constants";
+import { FixMeLater } from "../constants/common";
+import { WIDTH } from "../constants/constants";
 import fonts from "../constants/fonts";
+import LocalizationContext from "../utils/LocalizationContext";
 
 function Stats({ navigation }) {
-	const [emptyStats, setEmptyStats] = useState(true);
+	const [emptyStats, setEmptyStats] = useState(false);
+	const { t } = useContext<FixMeLater>(LocalizationContext);
+
 	return (
 		<AppScreen>
 			<ScrollView
@@ -39,9 +43,10 @@ function Stats({ navigation }) {
 						marginBottom: 20,
 						marginHorizontal: 5,
 						fontFamily: fonts.bold,
+						textTransform: "capitalize",
 					}}
 				>
-					My Stats
+					{t("myStat")}
 				</Text>
 
 				{emptyStats ? (
@@ -75,9 +80,10 @@ function Stats({ navigation }) {
 									textAlign: "center",
 									marginTop: 10,
 									fontFamily: fonts.bold,
+									textTransform: "capitalize",
 								}}
 							>
-								No Stats Yet
+								{t("noStatsYet")}
 							</Text>
 							<Text
 								style={{
@@ -87,7 +93,7 @@ function Stats({ navigation }) {
 									fontFamily: fonts.medium,
 								}}
 							>
-								You haven't completed your first ride yet
+								{t("noStatsYetText")}
 							</Text>
 						</View>
 					</View>
@@ -103,12 +109,20 @@ function Stats({ navigation }) {
 								flexWrap: "wrap",
 							}}
 						>
-							<StatCard title="distance covered" value={257} metric="meters" />
-							<StatCard title="amount consumed" value={689} metric="RWF" />
-							<StatCard title="time elapsed" value={689} metric="minutes" />
-							<StatCard title="battery level" value={62} metric="%" />
-							<StatCard title="battery level" value={62} metric="%" />
-							<StatCard title="battery level" value={62} metric="%" />
+							<StatCard
+								title={t("distanceCovered")}
+								value={257}
+								metric="meters"
+							/>
+							<StatCard title={t("amountConsumed")} value={689} metric="RWF" />
+							<StatCard
+								title={t("timeElapsed")}
+								value={689}
+								metric={t("minutes")}
+							/>
+							<StatCard title={t("batteryLevel")} value={62} metric="%" />
+							<StatCard title={t("batteryLevel")} value={62} metric="%" />
+							<StatCard title={t("batteryLevel")} value={62} metric="%" />
 						</View>
 					</View>
 				)}

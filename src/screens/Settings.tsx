@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, TouchableOpacity, Image } from "react-native";
+import { Text, View, TouchableOpacity, Image, ScrollView } from "react-native";
 import { StatusBarHeight } from "../constants/constants";
 import colors from "../constants/colors";
 import fonts from "../constants/fonts";

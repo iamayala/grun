@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
 import { StatusBarHeight, HEIGHT } from "../constants/constants";
 import colors from "../constants/colors";
 import SettingOption from "../components/SettingOption";
 import fonts from "../constants/fonts";
 import AppScreen from "../components/AppScreen";
+import { FixMeLater } from "../constants/common";
+import LocalizationContext from "../utils/LocalizationContext";
 
 function Profile({ navigation }) {
+	const { t } = useContext<FixMeLater>(LocalizationContext);
+
 	return (
 		<AppScreen>
 			<ScrollView showsVerticalScrollIndicator={false}>
@@ -50,7 +54,7 @@ function Profile({ navigation }) {
 									fontFamily: fonts.medium,
 								}}
 							>
-								Update Profile
+								{t("updateProfile")}
 							</Text>
 						</TouchableOpacity>
 					</View>
@@ -107,9 +111,10 @@ function Profile({ navigation }) {
 								color: colors.lightColor,
 								fontSize: 16,
 								fontFamily: fonts.medium,
+								textTransform: "capitalize",
 							}}
 						>
-							Your Balance
+							{t("yourBalance")}
 						</Text>
 						<Text
 							style={{
@@ -153,39 +158,39 @@ function Profile({ navigation }) {
 				</View>
 
 				<SettingOption
-					label="Your stats"
+					label={t("myStat")}
 					icon={require("../../assets/Chart.png")}
 					onPress={() => navigation.navigate("Stats")}
 				/>
 
 				<SettingOption
-					label="Sub accounts"
+					label={t("subAccounts")}
 					icon={require("../../assets/SubUser.png")}
 					onPress={() => navigation.navigate("SubAccounts")}
 				/>
 
 				<SettingOption
-					label="how it works"
+					label={t("howItWorks")}
 					icon={require("../../assets/Document.png")}
 					onPress={() => navigation.navigate("HowTo")}
 				/>
 
 				<SettingOption
-					label="settings"
+					label={t("settings")}
 					icon={require("../../assets/Setting.png")}
 					onPress={() => navigation.navigate("AppSettings")}
 				/>
 
 				<SettingOption
-					label="support"
+					label={t("support")}
 					icon={require("../../assets/Chat.png")}
 					onPress={() => navigation.navigate("Support")}
 				/>
 
 				<SettingOption
-					label="logout"
+					label={t("logout")}
 					icon={require("../../assets/Logout.png")}
-					// onPress={() => navigation.navigate("Support")}
+					onPress={() => navigation.navigate("Support")}
 				/>
 
 				<View

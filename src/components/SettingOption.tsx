@@ -3,8 +3,15 @@ import { TouchableOpacity, View, Image, Text } from "react-native";
 import colors from "../constants/colors";
 import { MaterialIcons } from "@expo/vector-icons";
 import fonts from "../constants/fonts";
+import { FixMeLater } from "../constants/common";
 
-function SettingOption({ label, onPress, icon }) {
+type Props = {
+	label: string;
+	onPress?: () => void;
+	icon: FixMeLater;
+};
+
+function SettingOption({ label, onPress, icon }: Props) {
 	return (
 		<TouchableOpacity
 			onPress={onPress}

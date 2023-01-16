@@ -1,15 +1,17 @@
 // export language
-
 export const allLanguages = [
 	{
+		number: 1,
 		language: "English",
 		flag: "https://www.countryflags.com/wp-content/uploads/united-kingdom-flag-png-large.png",
 	},
 	{
+		number: 2,
 		language: "French",
 		flag: "https://www.countryflags.com/wp-content/uploads/france-flag-png-large.png",
 	},
 	{
+		number: 3,
 		language: "Kinyarwanda",
 		flag: "https://www.countryflags.com/wp-content/uploads/rwanda-flag-png-large.png",
 	},
@@ -75,6 +77,7 @@ export const howTo = [
 	},
 ];
 
+// FrequentlyAskedQuestions
 export const FrequentlyAskedQuestions = [
 	{
 		id: 1,
@@ -139,6 +142,7 @@ export const FrequentlyAskedQuestions = [
 	},
 ];
 
+// support messages
 export const supportmessages = [
 	{
 		conversationid: 1,

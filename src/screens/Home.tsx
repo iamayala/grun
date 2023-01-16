@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
 	Text,
 	TouchableOpacity,
@@ -6,16 +6,40 @@ import {
 	Image,
 	ImageBackground,
 } from "react-native";
-import { StatusBarHeight, textDark } from "../constants/constants";
+import { StatusBarHeight } from "../constants/constants";
 import Modal from "react-native-modal";
 import { allLanguages } from "../constants/utils";
 import colors from "../constants/colors";
 import fonts from "../constants/fonts";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
+import { FixMeLater } from "../constants/common";
+import LocalizationContext from "../utils/LocalizationContext";
 
 function Home() {
 	const [languages, setLanguages] = useState(allLanguages);
 	const [activeLanguage, setActiveLanguage] = useState(null);
 	const [languageModal, setLanguageModal] = useState(false);
+
+	const { setLocale, t } = useContext<FixMeLater>(LocalizationContext);
+
+	const account = useSelector((state: RootState) => state.account);
+
+	const setAppLanguage = (number: number) => {
+		switch (number) {
+			case 1:
+				setLocale("en");
+				break;
+			case 2:
+				setLocale("fr");
+				break;
+			case 3:
+				setLocale("rw");
+				break;
+			default:
+				break;
+		}
+	};
 
 	useEffect(() => {
 		fetchActiveLanguage();
@@ -53,6 +77,7 @@ function Home() {
 							resizeMode: "contain",
 						}}
 					/>
+					<Text style={{ fontFamily: fonts.medium }}>{t("Home")}</Text>
 				</View>
 				<TouchableOpacity onPress={() => setLanguageModal(true)}>
 					<Image
@@ -103,7 +128,7 @@ function Home() {
 						style={{
 							fontSize: 18,
 							fontFamily: fonts.bold,
-							color: textDark,
+							color: colors.textDark,
 							paddingVertical: 10,
 						}}
 					>
@@ -114,6 +139,7 @@ function Home() {
 							<TouchableOpacity
 								key={index}
 								onPress={() => {
+									setAppLanguage(item.number);
 									setActiveLanguage(item);
 									setLanguageModal(false);
 								}}

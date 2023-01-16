@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, View, Image, StyleSheet } from "react-native";
+import {
+	Text,
+	TouchableOpacity,
+	View,
+	Image,
+	StyleSheet,
+	Platform,
+} from "react-native";
 import { WIDTH, HEIGHT } from "../constants/constants";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { MaterialCommunityIcons } from "@expo/vector-icons";

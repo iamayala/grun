@@ -8,6 +8,7 @@ import {
 	Image,
 	FlatList,
 	KeyboardAvoidingView,
+	Platform,
 } from "react-native";
 import color from "../constants/colors";
 import AppScreen from "../components/AppScreen";
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
 	inputview: {
 		flexDirection: "row",
 		margin: 15,
-		backgroundColor: colors.white,
+		backgroundColor: colors.textWhite,
 		height: 45,
 		borderRadius: 30,
 		paddingRight: 3,
@@ -103,7 +104,7 @@ function ChatSupport({ navigation, route }) {
 									fontFamily: fonts.medium,
 									marginHorizontal: 20,
 									fontSize: 17,
-									color: colors.textDarks,
+									color: colors.textDark,
 								}}
 							>
 								Support Center
@@ -130,7 +131,7 @@ function ChatSupport({ navigation, route }) {
 					</View>
 					<FlatList
 						data={chats}
-						keyExtractor={(item) => item.id}
+						keyExtractor={(item): any => item.id}
 						nestedScrollEnabled
 						contentContainerStyle={{ marginHorizontal: 15, paddingTop: 15 }}
 						renderItem={({ item }) => {
@@ -143,7 +144,7 @@ function ChatSupport({ navigation, route }) {
 							onChangeText={(e) => setMessage(e)}
 							style={styles.textinput}
 							placeholder="Start typing..."
-							placeholderTextColor={colors.iconGrey}
+							placeholderTextColor={colors.textGrey}
 						/>
 						<TouchableOpacity
 							style={[

@@ -25,10 +25,7 @@ function RideScreen({ navigation }) {
 				source={{
 					uri: "https://img.freepik.com/premium-vector/city-map-navigate-route_23-2148309838.jpg?w=2000",
 				}}
-				style={{
-					flex: 1,
-					resizeMode: "cover",
-				}}
+				style={{ flex: 1 }}
 			>
 				<View
 					style={{

@@ -3,7 +3,13 @@ import { Text, TouchableOpacity } from "react-native";
 import colors from "../constants/colors";
 import fonts from "../constants/fonts";
 
-function TabButton({ onPress, label, active }) {
+type Props = {
+	onPress: () => void;
+	label: string;
+	active?: Boolean;
+};
+
+function TabButton({ onPress, label, active = false }: Props) {
 	return (
 		<TouchableOpacity
 			onPress={onPress}

@@ -10,12 +10,7 @@ import {
 	ActivityIndicator,
 	TextInput,
 } from "react-native";
-import {
-	StatusBarHeight,
-	WIDTH,
-	profiles,
-	HEIGHT,
-} from "../constants/constants";
+import { WIDTH, HEIGHT } from "../constants/constants";
 import Modal from "react-native-modal";
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -35,7 +30,8 @@ function SubAccounts({ navigation }) {
 	const [addUserLoader, setaddUserLoader] = useState(false);
 	const [amount, setAmount] = useState("");
 
-	const removeProfile = (item) => {
+	const removeProfile = (item: any) => {
+		// @ts-ignore
 		let profiles = profiles.filter((i) => i != item);
 		setProfiles(profiles);
 		setViewController(false);
@@ -133,7 +129,7 @@ function SubAccounts({ navigation }) {
 						</View>
 					) : (
 						<View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-							{profiles?.map((item, index) => {
+							{profiles?.map((item: any, index) => {
 								return (
 									<TouchableOpacity
 										onLongPress={() =>
@@ -264,7 +260,7 @@ function SubAccounts({ navigation }) {
 							}}
 							codeTextStyle={{ paddingHorizontal: 0 }}
 							onChangeFormattedText={(phone) => setPhone(phone)}
-							placeholdertextDark={colors.greyColor}
+							// placeholdertextDark={colors.greyColor}
 						/>
 
 						<View
@@ -286,7 +282,7 @@ function SubAccounts({ navigation }) {
 								value={amount}
 								keyboardType="numeric"
 								onChangeText={(e) => setAmount(e)}
-								placeholdertextDark={colors.greyColor}
+								// placeholdertextDark={colors.greyColor}
 								style={{
 									flex: 1,
 									fontFamily: fonts.medium,

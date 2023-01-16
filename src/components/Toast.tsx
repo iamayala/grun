@@ -19,7 +19,14 @@ const styles = StyleSheet.create({
 	},
 });
 
-function Toast({ message, title, onPress, type = "danger" }) {
+type Props = {
+	message: string;
+	title: string;
+	onPress: () => void;
+	type: string;
+};
+
+function Toast({ message, title, onPress, type = "danger" }: Props) {
 	return (
 		<View
 			style={[

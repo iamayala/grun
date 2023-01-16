@@ -9,7 +9,7 @@ const XSMAX_HEIGHT = 896;
 const { height, width } = Dimensions.get("window");
 
 const isIPhoneX = () =>
-	Platform.OS === "ios" && !Platform.isPad && !Platform.isTVOS
+	Platform.OS === "ios" && !Platform.isPad
 		? (width === X_WIDTH && height === X_HEIGHT) ||
 		  (width === XSMAX_WIDTH && height === XSMAX_HEIGHT)
 		: false;

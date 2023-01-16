@@ -3,7 +3,13 @@ import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
 import colors from "../constants/colors";
 import fonts from "../constants/fonts";
 
-function AppButton({ label, onPress, loading }) {
+type Props = {
+	label: string;
+	onPress: () => void;
+	loading?: Boolean;
+};
+
+function AppButton({ label, onPress, loading }: Props) {
 	return (
 		<TouchableOpacity
 			onPress={onPress}

@@ -36,6 +36,10 @@ function Login({ navigation }) {
 		}
 	};
 
+	const handleLogin = () => {};
+
+	const handleSignup = () => {};
+
 	return (
 		<AppScreen>
 			<View
@@ -114,7 +118,7 @@ function Login({ navigation }) {
 							padding: 0,
 							width: WIDTH - 40,
 							marginBottom: 0,
-							borderColor: phone_err ? err__color : "transparent",
+							borderColor: phone_err ? colors.danger : "transparent",
 							borderWidth: 1.5,
 						}}
 						textContainerStyle={{
@@ -136,7 +140,7 @@ function Login({ navigation }) {
 							setPhone_err(false);
 							setPwd_err(false);
 						}}
-						placeholdertextDark={colors.greyColor}
+						// placeholdertextDark={colors.greyColor}
 					/>
 
 					<View
@@ -149,7 +153,7 @@ function Login({ navigation }) {
 							flexDirection: "row",
 							alignItems: "center",
 							backgroundColor: colors.lightColor,
-							borderColor: pwd_err ? err__color : "transparent",
+							borderColor: pwd_err ? colors.danger : "transparent",
 							borderWidth: 1.5,
 						}}
 					>
@@ -162,7 +166,7 @@ function Login({ navigation }) {
 								setPhone_err(false);
 								setPwd_err(false);
 							}}
-							placeholdertextDark={colors.greyColor}
+							// placeholdertextDark={colors.greyColor}
 							style={{
 								flex: 1,
 								fontFamily: fonts.medium,
