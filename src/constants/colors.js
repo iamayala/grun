@@ -9,4 +9,5 @@ export default {
 	backgroundColor: "#fff",
 	danger: "#ff4444",
 	success: "#5cb85c",
+	border: "#E2E2E2",
 };

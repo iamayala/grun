@@ -29,10 +29,8 @@ function Login({ navigation }) {
 			setErrorModal(true);
 			setPhone("");
 			setPassword("");
-			setErrorMessage(
-				"Please provide the right phone number format. \nExample: 780000000"
-			);
-			ErrorTitle("Wrong Phone Number");
+			setErrorMessage("Please provide the right phone number format.");
+			setErrorTitle("Wrong Phone Number");
 		} else {
 			tab == "login" ? handleLogin() : handleSignup();
 		}
@@ -49,7 +47,12 @@ function Login({ navigation }) {
 				}}
 			>
 				{ErrorModal && (
-					<Toast title={ErrorTitle} message={ErrorMessage} type="danger" />
+					<Toast
+						title={ErrorTitle}
+						message={ErrorMessage}
+						type="danger"
+						onPress={() => setErrorModal(false)}
+					/>
 				)}
 
 				<View>
@@ -125,11 +128,14 @@ function Login({ navigation }) {
 							marginVertical: 0,
 							paddingHorizontal: 0,
 							backgroundColor: "transparent",
+							fontFamily: fonts.medium,
 						}}
 						codeTextStyle={{ paddingHorizontal: 0, fontFamily: fonts.medium }}
-						onChangeFormattedText={(phone) =>
-							this.setState({ phone, phone_err: false, pwd_err: false })
-						}
+						onChangeFormattedText={(phone) => {
+							setPhone(phone);
+							setPhone_err(false);
+							setPwd_err(false);
+						}}
 						placeholdertextDark={colors.greyColor}
 					/>
 
@@ -151,17 +157,20 @@ function Login({ navigation }) {
 							placeholder="Password"
 							secureTextEntry={hidePwd}
 							value={password}
-							onChangeText={(e) =>
-								this.setState({ password: e, phone_err: false, pwd_err: false })
-							}
+							onChangeText={(e) => {
+								setPassword(e);
+								setPhone_err(false);
+								setPwd_err(false);
+							}}
 							placeholdertextDark={colors.greyColor}
 							style={{
 								flex: 1,
 								fontFamily: fonts.medium,
+								paddingVertical: 10,
 							}}
 						/>
 						<TouchableOpacity
-							onPress={() => this.setState({ hidePwd: !hidePwd })}
+							onPress={() => setHidePwd(!hidePwd)}
 							style={{
 								padding: 10,
 							}}
@@ -193,12 +202,23 @@ function Login({ navigation }) {
 
 				<AppButton
 					label={tab == "login" ? "LOG IN" : "SIGN UP"}
-					onPress={() => navigation.navigate("TabNavigation")}
+					onPress={
+						phone == "" || password == ""
+							? () => {
+									setErrorModal(true);
+									setErrorTitle("Empty Fields");
+									setErrorMessage("Please fill all the blank fields");
+							  }
+							: // : () => navigation.navigate("TabNavigation")
+							  () => ValidatePhone(phone)
+					}
 					loading={loading}
 				/>
 
 				{tab == "login" && (
-					<TouchableOpacity>
+					<TouchableOpacity
+						onPress={() => navigation.navigate("TabNavigation")}
+					>
 						<Text
 							style={{
 								textAlign: "center",

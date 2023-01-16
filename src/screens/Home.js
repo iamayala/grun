@@ -14,10 +14,7 @@ import fonts from "../constants/fonts";
 
 function Home() {
 	const [languages, setLanguages] = useState(allLanguages);
-	const [activeLanguage, setActiveLanguage] = useState({
-		language: "English",
-		flag: "https://www.countryflags.com/wp-content/uploads/united-kingdom-flag-png-large.png",
-	});
+	const [activeLanguage, setActiveLanguage] = useState(null);
 	const [languageModal, setLanguageModal] = useState(false);
 
 	useEffect(() => {
@@ -59,7 +56,7 @@ function Home() {
 				</View>
 				<TouchableOpacity onPress={() => setLanguageModal(true)}>
 					<Image
-						source={{ uri: activeLanguage.flag }}
+						source={{ uri: activeLanguage?.flag }}
 						style={{
 							height: 30,
 							width: 30,
@@ -116,7 +113,10 @@ function Home() {
 						return (
 							<TouchableOpacity
 								key={index}
-								onPress={() => setLanguageModal(false)}
+								onPress={() => {
+									setActiveLanguage(item);
+									setLanguageModal(false);
+								}}
 								style={{
 									flexDirection: "row",
 									alignItems: "center",

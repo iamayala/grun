@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-
+import React from "react";
 import {
 	Text,
 	View,
@@ -26,6 +26,7 @@ import Support from "../screens/Support";
 import Recharge from "../screens/Recharge";
 import AppSettings from "../screens/Settings";
 import colors from "../constants/colors";
+import ChatSupport from "../screens/ChatSupport";
 
 const Tab = createBottomTabNavigator();
 const NavigationStack = createStackNavigator();
@@ -50,7 +51,24 @@ const RideNavigation = () => {
 	);
 };
 
-const ProfileNavigation = () => {
+const ProfileNavigation = ({ navigation, route }) => {
+	React.useLayoutEffect(() => {
+		const routeName = getFocusedRouteNameFromRoute(route);
+		var routeArray = [
+			"ChatSupport",
+			"SubAccounts",
+			"Stats",
+			"HowTo",
+			"Support",
+			"Recharge",
+			"AppSettings",
+		];
+		if (routeArray.includes(routeName)) {
+			navigation.setOptions({ tabBarStyle: { display: "none" } });
+		} else {
+			navigation.setOptions({ tabBarStyle: styles.tabBarStyle });
+		}
+	}, [navigation, route]);
 	return (
 		<NavigationStack.Navigator screenOptions={{ headerShown: false }}>
 			<NavigationStack.Screen name="Profile" component={Profile} />
@@ -60,6 +78,7 @@ const ProfileNavigation = () => {
 			<NavigationStack.Screen name="Support" component={Support} />
 			<NavigationStack.Screen name="Recharge" component={Recharge} />
 			<NavigationStack.Screen name="AppSettings" component={AppSettings} />
+			<NavigationStack.Screen name="ChatSupport" component={ChatSupport} />
 		</NavigationStack.Navigator>
 	);
 };
@@ -139,7 +158,6 @@ const TabNavigation = () => {
 					),
 					tabBarStyle: ((route) => {
 						const routeName = getFocusedRouteNameFromRoute(route) ?? "";
-						console.log(routeName);
 						if (routeName == "RideScreen") {
 							return { display: "none" };
 						}
@@ -167,7 +185,6 @@ const TabNavigation = () => {
 					),
 					tabBarStyle: ((route) => {
 						const routeName = getFocusedRouteNameFromRoute(route) ?? "";
-						// console.log(routeName)
 						if (
 							routeName == "SubAccounts" ||
 							routeName == "Stats" ||
@@ -192,9 +209,21 @@ function MainNavigation() {
 			initialRouteName="Splash"
 			screenOptions={{ headerShown: false }}
 		>
-			<NavigationStack.Screen name="Splash" component={Splash} />
-			<NavigationStack.Screen name="Login" component={Login} />
-			<NavigationStack.Screen name="TabNavigation" component={TabNavigation} />
+			<NavigationStack.Screen
+				name="Splash"
+				component={Splash}
+				options={{ gestureEnabled: false }}
+			/>
+			<NavigationStack.Screen
+				name="Login"
+				component={Login}
+				options={{ gestureEnabled: false }}
+			/>
+			<NavigationStack.Screen
+				name="TabNavigation"
+				component={TabNavigation}
+				options={{ gestureEnabled: false }}
+			/>
 		</NavigationStack.Navigator>
 	);
 }
