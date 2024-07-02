@@ -8,10 +8,18 @@ import { FixMeLater } from "../constants/common";
 type Props = {
 	label: string;
 	onPress?: () => void;
+	hasRightIcon?: boolean;
 	icon: FixMeLater;
+	isLastItem?: boolean;
 };
 
-function SettingOption({ label, onPress, icon }: Props) {
+function SettingOption({
+	label,
+	onPress,
+	icon,
+	isLastItem,
+	hasRightIcon = true,
+}: Props) {
 	return (
 		<TouchableOpacity
 			onPress={onPress}
@@ -21,7 +29,7 @@ function SettingOption({ label, onPress, icon }: Props) {
 				marginHorizontal: 20,
 				alignItems: "center",
 				flexDirection: "row",
-				borderBottomColor: "#ebebeb",
+				borderBottomColor: isLastItem ? "transparent" : "#ebebeb",
 				borderBottomWidth: 1,
 			}}
 		>
@@ -45,7 +53,9 @@ function SettingOption({ label, onPress, icon }: Props) {
 					{label}
 				</Text>
 			</View>
-			<MaterialIcons name="chevron-right" size={18} color="#777" />
+			{hasRightIcon && (
+				<MaterialIcons name="chevron-right" size={18} color="#777" />
+			)}
 		</TouchableOpacity>
 	);
 }

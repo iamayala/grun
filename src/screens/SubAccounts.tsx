@@ -5,14 +5,11 @@ import {
 	TouchableOpacity,
 	Image,
 	FlatList,
-	ScrollView,
 	Platform,
-	ActivityIndicator,
 	TextInput,
 } from "react-native";
 import { WIDTH, HEIGHT } from "../constants/constants";
 import Modal from "react-native-modal";
-import { MaterialIcons } from "@expo/vector-icons";
 
 import PhoneInput from "react-native-phone-number-input";
 import colors from "../constants/colors";
@@ -20,21 +17,24 @@ import fonts from "../constants/fonts";
 import AppButton from "../components/AppButton";
 import { allProfiles } from "../constants/utils";
 import AppScreen from "../components/AppScreen";
+import ScreenHeader from "../components/ScreenHeader";
+import ConfirmationModal from "../components/ConfirmationModal";
 
 function SubAccounts({ navigation }) {
 	const [profiles, setProfiles] = useState(allProfiles);
 	const [addSubAccount, setAddSubAccount] = useState(false);
-	const [viewController, setViewController] = useState(false);
+	const [showProfileControllers, setShowProfileControllers] = useState(false);
 	const [activeProfile, setActiveProfile] = useState("");
 	const [phone, setPhone] = useState("");
 	const [addUserLoader, setaddUserLoader] = useState(false);
 	const [amount, setAmount] = useState("");
+	const [showAlert, setShowAlert] = useState<"DELETE" | "CREATE">(null);
 
-	const removeProfile = (item: any) => {
-		// @ts-ignore
-		let profiles = profiles.filter((i) => i != item);
-		setProfiles(profiles);
-		setViewController(false);
+	const handleRemoveProfile = (item: any) => {
+		let updatedList = profiles.filter((i: any) => i != item);
+		setProfiles(updatedList);
+		setShowProfileControllers(false);
+		setShowAlert(null);
 	};
 
 	return (
@@ -46,158 +46,126 @@ function SubAccounts({ navigation }) {
 					paddingTop: 10,
 				}}
 			>
-				<View>
-					<TouchableOpacity onPress={() => navigation.goBack()}>
-						<Image
-							source={require("../../assets/arrow-left.png")}
-							style={{
-								height: 55,
-								width: 55,
-								resizeMode: "contain",
-							}}
-						/>
-					</TouchableOpacity>
-				</View>
-				<Text
-					style={{
-						color: colors.textDark,
-						fontFamily: fonts.bold,
-						fontSize: 20,
-						marginTop: 20,
-						marginBottom: 20,
-						marginHorizontal: 5,
-					}}
-				>
-					Sub Accounts
-				</Text>
-
-				<ScrollView>
-					{profiles?.length == 0 ? (
-						<View>
-							<View
+				<ScreenHeader
+					header="Sub Accounts"
+					onPress={() => navigation.goBack()}
+				/>
+				<FlatList
+					data={profiles}
+					numColumns={3}
+					keyExtractor={(item, index) => item + index}
+					renderItem={({ item }: { item: any }) => {
+						const isActive = item == activeProfile;
+						return (
+							<TouchableOpacity
+								onLongPress={() => {
+									setActiveProfile(item);
+									setShowProfileControllers(true);
+								}}
 								style={{
-									alignItems: "center",
-									justifyContent: "center",
+									marginHorizontal: 5,
+									marginVertical: 5,
+									borderWidth: 2,
+									borderColor: isActive ? colors.primary : "transparent",
+									borderRadius: 17,
 								}}
 							>
 								<Image
-									source={require("../../assets/CoinHand.png")}
+									source={{ uri: item.image }}
 									style={{
-										height: HEIGHT * 0.4,
-										width: WIDTH * 0.8,
-										resizeMode: "contain",
+										height: WIDTH / 3 - 23,
+										width: WIDTH / 3 - 23,
+										resizeMode: "cover",
+										borderRadius: 15,
 									}}
 								/>
-							</View>
-
-							<View
-								style={{
-									marginBottom: 10,
-									marginHorizontal: 30,
-								}}
-							>
-								<Text
+								<View
 									style={{
-										fontSize: 22,
-										color: colors.textDark,
-										textAlign: "center",
-										marginTop: 10,
-										fontFamily: fonts.bold,
+										position: "absolute",
+										bottom: 0,
+										right: 0,
+										left: 0,
+										height: 40,
+										borderBottomLeftRadius: 14,
+										borderBottomRightRadius: 14,
+										backgroundColor: colors.lightColor,
+										alignItems: "center",
+										justifyContent: "center",
 									}}
 								>
-									No Sub Accounts Yet
-								</Text>
-								<Text
-									style={{
-										color: colors.textGrey,
-										fontSize: 16,
-										marginTop: 10,
-										textAlign: "center",
-										fontFamily: fonts.medium,
-									}}
-								>
-									You can Share your balance with your friends
-								</Text>
-							</View>
-
-							<View style={{ marginHorizontal: 20, marginTop: 25 }}>
-								<AppButton
-									label="add sub account"
-									onPress={() => setAddSubAccount(true)}
-								/>
-							</View>
-						</View>
-					) : (
-						<View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-							{profiles?.map((item: any, index) => {
-								return (
-									<TouchableOpacity
-										onLongPress={() =>
-											this.setState({
-												activeProfile: item,
-												viewController: true,
-											})
-										}
-										key={index}
+									<Text
 										style={{
-											marginHorizontal: item == activeProfile ? 0 : 5,
-											marginVertical: item == activeProfile ? 0 : 5,
-											borderWidth: item == activeProfile ? 5 : 0,
-											borderColor:
-												item == activeProfile ? colors.primary : "transparent",
+											color: colors.textDark,
+											fontFamily: fonts.medium,
+											textTransform: "capitalize",
+										}}
+										numberOfLines={1}
+									>
+										{item.name}
+									</Text>
+								</View>
+							</TouchableOpacity>
+						);
+					}}
+					ListEmptyComponent={() => {
+						return (
+							<View>
+								<View
+									style={{
+										alignItems: "center",
+										justifyContent: "center",
+									}}
+								>
+									<Image
+										source={require("../../assets/CoinHand.png")}
+										style={{
+											height: HEIGHT * 0.4,
+											width: WIDTH * 0.8,
+											resizeMode: "contain",
+										}}
+									/>
+								</View>
+
+								<View
+									style={{
+										marginBottom: 10,
+										marginHorizontal: 30,
+									}}
+								>
+									<Text
+										style={{
+											fontSize: 22,
+											color: colors.textDark,
+											textAlign: "center",
+											marginTop: 10,
+											fontFamily: fonts.bold,
 										}}
 									>
-										<Image
-											source={{ uri: item.image }}
-											style={{
-												height: WIDTH / 3 - 20,
-												width: WIDTH / 3 - 20,
-												resizeMode: "cover",
-											}}
-										/>
-										<View
-											style={{
-												position: "absolute",
-												bottom: 0,
-												right: 0,
-												left: 0,
-												height: 30,
-												backgroundColor: colors.lightColor,
-												alignItems: "center",
-												justifyContent: "center",
-											}}
-										>
-											<Text
-												style={{
-													color: colors.textDark,
-													fontFamily: fonts.medium,
-													textTransform: "capitalize",
-												}}
-												numberOfLines={1}
-											>
-												{item.name}
-											</Text>
-										</View>
-									</TouchableOpacity>
-								);
-							})}
+										No Sub Accounts Yet
+									</Text>
+									<Text
+										style={{
+											color: colors.textGrey,
+											fontSize: 16,
+											marginTop: 10,
+											textAlign: "center",
+											fontFamily: fonts.medium,
+										}}
+									>
+										You can Share your balance with your friends
+									</Text>
+								</View>
 
-							<TouchableOpacity
-								onPress={() => setAddSubAccount(true)}
-								style={{
-									height: WIDTH / 3 - 20,
-									width: WIDTH / 3 - 20,
-									backgroundColor: colors.lightColor,
-									margin: 5,
-									alignItems: "center",
-									justifyContent: "center",
-								}}
-							>
-								<MaterialIcons name="add" size={60} color="#757575" />
-							</TouchableOpacity>
-						</View>
-					)}
-				</ScrollView>
+								<View style={{ marginHorizontal: 20, marginTop: 25 }}>
+									<AppButton
+										label="add sub account"
+										onPress={() => setAddSubAccount(true)}
+									/>
+								</View>
+							</View>
+						);
+					}}
+				/>
 
 				<Modal
 					onBackdropPress={() => setAddSubAccount(false)}
@@ -299,88 +267,101 @@ function SubAccounts({ navigation }) {
 					</View>
 				</Modal>
 
-				{viewController && (
-					<View
+				<View
+					style={{
+						height: Platform.OS == "ios" ? 90 : 80,
+						backgroundColor: colors.primary,
+						position: "absolute",
+						bottom: 0,
+						left: 0,
+						right: 0,
+						paddingHorizontal: 15,
+						alignItems: "center",
+						flexDirection: "row",
+						display: showProfileControllers ? "flex" : "none",
+					}}
+				>
+					<TouchableOpacity
+						onPress={() => setShowAlert("DELETE")}
 						style={{
-							height: Platform.OS == "ios" ? 90 : 80,
-							backgroundColor: colors.primary,
-							position: "absolute",
-							bottom: 0,
-							left: 0,
-							right: 0,
-							paddingHorizontal: 15,
+							backgroundColor: "#fff",
 							alignItems: "center",
-							flexDirection: "row",
+							justifyContent: "center",
+							borderRadius: 50,
+							height: 50,
+							width: 50,
+							marginHorizontal: 5,
 						}}
 					>
-						<TouchableOpacity
-							onPress={() => this.removeProfile(activeProfile)}
+						<Image
+							source={require("../../assets/Delete.png")}
 							style={{
-								backgroundColor: "#fff",
-								alignItems: "center",
-								justifyContent: "center",
-								borderRadius: 50,
+								height: 30,
+								width: 30,
+								tintColor: "red",
+								resizeMode: "contain",
+							}}
+						/>
+					</TouchableOpacity>
+					<TouchableOpacity
+						style={{
+							// hidden
+							display: "none",
+
+							backgroundColor: "#fff",
+							alignItems: "center",
+							justifyContent: "center",
+							borderRadius: 50,
+							height: 50,
+							width: 50,
+							marginHorizontal: 5,
+						}}
+					>
+						<Image
+							source={require("../../assets/Show.png")}
+							style={{
+								height: 30,
+								width: 30,
+								tintColor: "#000",
+								resizeMode: "contain",
+							}}
+						/>
+					</TouchableOpacity>
+
+					<View style={{ flex: 1 }} />
+
+					<TouchableOpacity
+						onPress={() => {
+							setActiveProfile(null);
+							setShowProfileControllers(false);
+						}}
+						style={{
+							marginHorizontal: 5,
+						}}
+					>
+						<Image
+							source={require("../../assets/close.png")}
+							style={{
 								height: 50,
 								width: 50,
-								marginHorizontal: 5,
+								resizeMode: "contain",
 							}}
-						>
-							<Image
-								source={require("../../assets/Delete.png")}
-								style={{
-									height: 30,
-									width: 30,
-									tintColor: "red",
-									resizeMode: "contain",
-								}}
-							/>
-						</TouchableOpacity>
-						<TouchableOpacity
-							style={{
-								// hidden
-								display: "none",
+						/>
+					</TouchableOpacity>
+				</View>
 
-								backgroundColor: "#fff",
-								alignItems: "center",
-								justifyContent: "center",
-								borderRadius: 50,
-								height: 50,
-								width: 50,
-								marginHorizontal: 5,
-							}}
-						>
-							<Image
-								source={require("../../assets/Show.png")}
-								style={{
-									height: 30,
-									width: 30,
-									tintColor: "#000",
-									resizeMode: "contain",
-								}}
-							/>
-						</TouchableOpacity>
-
-						<View style={{ flex: 1 }} />
-
-						<TouchableOpacity
-							onPress={() =>
-								this.setState({ activeProfile: "", viewController: false })
-							}
-							style={{
-								marginHorizontal: 5,
-							}}
-						>
-							<Image
-								source={require("../../assets/close.png")}
-								style={{
-									height: 50,
-									width: 50,
-									resizeMode: "contain",
-								}}
-							/>
-						</TouchableOpacity>
-					</View>
-				)}
+				<ConfirmationModal
+					open={showAlert === "DELETE"}
+					title="Deleting"
+					body="Are you sure you want to delete this profile?"
+					handleConfirmation={() => handleRemoveProfile(activeProfile)}
+					onClose={() => {
+						setShowAlert(null);
+						setActiveProfile(null);
+						setShowProfileControllers(false);
+					}}
+					loading={false}
+				/>
 			</View>
 		</AppScreen>
 	);

@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import colors from "../constants/colors";
 import fonts from "../constants/fonts";
 import { WIDTH } from "../constants/constants";
+import { Message } from "../screens/ChatSupport";
 
 const styles = StyleSheet.create({
 	messageSnt: {
@@ -17,14 +18,17 @@ const styles = StyleSheet.create({
 	},
 });
 
-function MessageReceived() {
+type Props = {
+	message: Message;
+};
+
+const MessageReceived = ({ message }: Props) => {
 	return (
 		<View style={{ flexDirection: "row" }}>
 			<View style={{ flex: 1 }} />
 			<TouchableOpacity style={styles.messageSnt}>
 				<Text style={{ fontFamily: fonts.medium, color: colors.textWhite }}>
-					Please, make sure you have sent the previous emails to all my
-					classmates
+					{message.content}
 				</Text>
 				<Text
 					style={{
@@ -35,11 +39,11 @@ function MessageReceived() {
 						color: colors.textWhite,
 					}}
 				>
-					12:00
+					{message.timestamp}
 				</Text>
 			</TouchableOpacity>
 		</View>
 	);
-}
+};
 
 export default MessageReceived;

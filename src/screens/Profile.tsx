@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
 import { Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
-import { StatusBarHeight, HEIGHT } from "../constants/constants";
+import { HEIGHT } from "../constants/constants";
 import colors from "../constants/colors";
 import SettingOption from "../components/SettingOption";
 import fonts from "../constants/fonts";
 import AppScreen from "../components/AppScreen";
 import { FixMeLater } from "../constants/common";
 import LocalizationContext from "../utils/LocalizationContext";
+import WalletCard from "../components/WalletCard";
 
 function Profile({ navigation }) {
 	const { t } = useContext<FixMeLater>(LocalizationContext);
@@ -60,102 +61,7 @@ function Profile({ navigation }) {
 					</View>
 				</View>
 
-				<View
-					style={{
-						backgroundColor: colors.primary,
-						marginHorizontal: 15,
-						borderRadius: 15,
-						padding: 15,
-						marginTop: 20,
-					}}
-				>
-					<View
-						style={{
-							flexDirection: "row",
-							alignItems: "center",
-							justifyContent: "space-between",
-							paddingBottom: 15,
-							borderBottomColor: "#7c7c7c",
-							borderBottomWidth: 1,
-						}}
-					>
-						<Image
-							source={require("../../assets/logopay.png")}
-							style={{ height: 30, width: 100, resizeMode: "contain" }}
-						/>
-						<TouchableOpacity
-							onPress={() => this.props.navigation.navigate("Recharge")}
-							style={{
-								height: 30,
-								paddingHorizontal: 20,
-								backgroundColor: colors.lightColor,
-								justifyContent: "center",
-								alignItems: "center",
-								borderRadius: 38,
-							}}
-						>
-							<Text style={{ fontFamily: fonts.medium }}>Recharge +</Text>
-						</TouchableOpacity>
-					</View>
-
-					<View
-						style={{
-							flexDirection: "row",
-							justifyContent: "space-between",
-							alignItems: "center",
-							marginTop: 15,
-						}}
-					>
-						<Text
-							style={{
-								color: colors.lightColor,
-								fontSize: 16,
-								fontFamily: fonts.medium,
-								textTransform: "capitalize",
-							}}
-						>
-							{t("yourBalance")}
-						</Text>
-						<Text
-							style={{
-								color: colors.lightColor,
-								fontSize: 17,
-								fontFamily: fonts.bold,
-							}}
-						>
-							RWF 2900
-						</Text>
-					</View>
-
-					<View
-						style={{
-							flexDirection: "row",
-							justifyContent: "space-between",
-							alignItems: "center",
-							marginTop: 15,
-						}}
-					>
-						<Text
-							style={{
-								color: colors.lightColor,
-								fontSize: 16,
-								fontFamily: fonts.medium,
-							}}
-						>
-							Junior
-						</Text>
-						<Text
-							style={{
-								color: colors.lightColor,
-								fontSize: 17,
-								fontWeight: "bold",
-								fontFamily: fonts.bold,
-							}}
-						>
-							RWF 13,780
-						</Text>
-					</View>
-				</View>
+				<WalletCard navigation={navigation} />
 
 				<SettingOption
 					label={t("myStat")}
@@ -191,6 +97,8 @@ function Profile({ navigation }) {
 					label={t("logout")}
 					icon={require("../../assets/Logout.png")}
 					onPress={() => navigation.navigate("Support")}
+					isLastItem
+					hasRightIcon={false}
 				/>
 
 				<View

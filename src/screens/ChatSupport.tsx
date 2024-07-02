@@ -67,15 +67,56 @@ const styles = StyleSheet.create({
 	},
 });
 
-function ChatSupport({ navigation, route }) {
+export interface Message {
+	id: string;
+	sender: Sender;
+	content: string;
+	timestamp: string;
+	status: string;
+	type: string;
+}
+
+export interface Sender {
+	id: string;
+	name: string;
+	avatar: string;
+}
+
+const ChatSupport = ({ navigation, route }) => {
 	const [message, setMessage] = useState("");
-	const [chats, setChats] = useState([
+	const [chats, setChats] = useState<Message[]>([
 		{
-			id: 123,
-			content:
-				"Please, make sure you have sent the previous emails to all my classmates",
+			id: "1",
+			sender: {
+				id: "user123",
+				name: "John Doe",
+				avatar: "https://example.com/avatar.png",
+			},
+			content: "Hello there!",
+			timestamp: "2023-11-08T10:30:00Z",
+			status: "sent",
+			type: "text",
 		},
 	]);
+
+	const handleSendMessage = () => {
+		const newChat: Message = {
+			id: (chats.length + 1).toString(),
+			content: message.trim(),
+			status: "delivered",
+			timestamp: new Date().toISOString(),
+			type: "text",
+			sender: {
+				avatar: "",
+				id: "007",
+				name: "Serge",
+			},
+		};
+		setChats([...chats, newChat]);
+		setMessage("");
+	};
+
+	// @TODO: Add an auto scroll down when someone add a new message
 
 	return (
 		<AppScreen>
@@ -134,8 +175,12 @@ function ChatSupport({ navigation, route }) {
 						keyExtractor={(item): any => item.id}
 						nestedScrollEnabled
 						contentContainerStyle={{ marginHorizontal: 15, paddingTop: 15 }}
-						renderItem={({ item }) => {
-							return <MessageReceived />;
+						renderItem={({ item }: { item: Message }) => {
+							return item.sender.id === "007" ? (
+								<MessageReceived message={item} />
+							) : (
+								<MessageSent message={item} />
+							);
 						}}
 					/>
 					<View style={styles.inputview}>
@@ -147,9 +192,10 @@ function ChatSupport({ navigation, route }) {
 							placeholderTextColor={colors.textGrey}
 						/>
 						<TouchableOpacity
+							onPress={message.trim() !== "" ? handleSendMessage : null}
 							style={[
 								styles.SendBtn,
-								message
+								message.trim() !== ""
 									? { backgroundColor: "#703bff" }
 									: { backgroundColor: "#748c94" },
 							]}
@@ -164,6 +210,6 @@ function ChatSupport({ navigation, route }) {
 			</KeyboardAvoidingView>
 		</AppScreen>
 	);
-}
+};
 
 export default ChatSupport;

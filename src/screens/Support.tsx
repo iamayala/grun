@@ -5,25 +5,31 @@ import {
 	TouchableOpacity,
 	Image,
 	FlatList,
-	TextInput,
 	StyleSheet,
 } from "react-native";
-import { StatusBarHeight, WIDTH, HEIGHT } from "../constants/constants";
-import { FrequentlyAskedQuestions, supportmessages } from "../constants/utils";
-import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { HEIGHT } from "../constants/constants";
+import { FrequentlyAskedQuestions } from "../constants/utils";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../constants/colors";
-
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import fonts from "../constants/fonts";
 import AppScreen from "../components/AppScreen";
+import ScreenHeader from "../components/ScreenHeader";
 
 function Support({ navigation }) {
-	const [FAQ, setFAQ] = useState(FrequentlyAskedQuestions);
-	const [supportMessages, setSupportMessages] = useState(supportmessages);
-	const [userMessage, setuserMessage] = useState("");
-	const [user, setUser] = useState({ id: 1 });
-	const [showChatter, setShowChatter] = useState(false);
-	const [activeQuestion, setActiveQuestion] = useState("");
+	const [activeQuestion, setActiveQuestion] = useState({
+		question: "",
+		open: true,
+	});
+
+	const handleChevronDisplaying = (item) => {
+		let open = true;
+
+		if (item.question === activeQuestion.question) {
+			open = !activeQuestion.open;
+		}
+
+		setActiveQuestion({ question: item.question, open });
+	};
 
 	return (
 		<AppScreen>
@@ -34,30 +40,7 @@ function Support({ navigation }) {
 					paddingTop: 10,
 				}}
 			>
-				<View>
-					<TouchableOpacity onPress={() => navigation.goBack()}>
-						<Image
-							source={require("../../assets/arrow-left.png")}
-							style={{
-								height: 55,
-								width: 55,
-								resizeMode: "contain",
-							}}
-						/>
-					</TouchableOpacity>
-				</View>
-				<Text
-					style={{
-						color: colors.textDark,
-						fontFamily: fonts.bold,
-						fontSize: 20,
-						marginTop: 20,
-						marginBottom: 20,
-						marginHorizontal: 5,
-					}}
-				>
-					Support
-				</Text>
+				<ScreenHeader header="Support" onPress={() => navigation.goBack()} />
 
 				<TouchableOpacity
 					onPress={() => navigation.navigate("ChatSupport")}
@@ -86,13 +69,13 @@ function Support({ navigation }) {
 				</TouchableOpacity>
 
 				<FlatList
-					data={FAQ}
+					data={FrequentlyAskedQuestions}
 					keyExtractor={(item) => item.id.toString()}
 					showsVerticalScrollIndicator={false}
 					renderItem={({ item }: any) => {
 						return (
 							<TouchableOpacity
-								onPress={() => setActiveQuestion(item)}
+								onPress={() => handleChevronDisplaying(item)}
 								style={{
 									marginHorizontal: 5,
 									borderBottomColor: "#ebebeb",
@@ -114,27 +97,34 @@ function Support({ navigation }) {
 									</Text>
 									<MaterialCommunityIcons
 										name={
-											activeQuestion == item ? "chevron-up" : "chevron-down"
+											activeQuestion.question == item.question &&
+											activeQuestion.open
+												? "chevron-up"
+												: "chevron-down"
 										}
 										size={24}
 										color="#777"
 									/>
 								</View>
-								{activeQuestion == item && (
-									<Text
-										style={{
-											paddingBottom: 20,
-											fontFamily: fonts.medium,
-											color: colors.textGrey,
-										}}
-									>
-										{item.answer}
-									</Text>
-								)}
+								{activeQuestion.question == item.question &&
+									activeQuestion.open && (
+										<Text
+											style={{
+												paddingBottom: 20,
+												fontFamily: fonts.medium,
+												color: colors.textGrey,
+											}}
+										>
+											{item.answer}
+										</Text>
+									)}
 
 								<View
 									style={{
-										height: item.id == FAQ.length ? HEIGHT * 0.2 : 0,
+										height:
+											item.id == FrequentlyAskedQuestions.length
+												? HEIGHT * 0.2
+												: 0,
 									}}
 								/>
 							</TouchableOpacity>
